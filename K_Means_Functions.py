@@ -119,7 +119,9 @@ def initial_plot_2D(data_frame, k_locations, dim_dict):
 def final_plot_2D(data_frame, k_locations, dim_dict, k_tracker):
     color_list = ['b', 'r', 'g', 'magenta', 'cyan', 'blueviolet',\
     'orange', 'yellow', 'palegreen', 'grey', 'lime', 'peru', \
-    'teal', 'hotpink', 'cornflowerblue', 'lightcoral']                  #DEFINE COLOUR LIST FOR 16 CLUSTERS 
+    'teal', 'hotpink', 'cornflowerblue', 'lightcoral', 'darkgray',\
+    'whitesmoke', 'rosybrown', 'firebrick', 'salmon', 'chocolate',\
+    'bisque', 'tan', 'gold', 'olive', 'honeydew','thistle', 'k']        #DEFINE COLOUR LIST FOR 29 CLUSTERS
     param_list = sorted(dim_dict.keys())
     fig = plt.figure()
     x = data_frame.loc[:, [dim_dict[param_list[0]]]]                    #X DATAPOINT POSITIONS
@@ -161,7 +163,9 @@ def initial_plot_3D(data_frame, k_locations, dim_dict):
 def final_plot_3D(data_frame, k_locations, dim_dict, k_tracker):
     color_list = ['b', 'r', 'g', 'magenta', 'cyan', 'blueviolet',\
     'orange', 'yellow', 'palegreen', 'grey', 'lime', 'peru', \
-    'teal', 'hotpink', 'cornflowerblue', 'lightcoral']                  #DEFINE COLOUR LIST FOR 16 CLUSTERS
+    'teal', 'hotpink', 'cornflowerblue', 'lightcoral', 'darkgray',\
+    'whitesmoke', 'rosybrown', 'firebrick', 'salmon', 'chocolate',\
+    'bisque', 'tan', 'gold', 'olive', 'honeydew','thistle', 'k']        #DEFINE COLOUR LIST FOR 29 CLUSTERS
     param_list = sorted(dim_dict.keys())                                
     fig = plt.figure()
     x = data_frame.loc[:, [dim_dict[param_list[0]]]]                    #X DATAPOINT POSITIONS
