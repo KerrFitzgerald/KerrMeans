@@ -74,6 +74,18 @@ def soft_k_mean_V1():
                     mini = (soft_k_data[dim_dict[param_list[j]]].min()) #FIND MINIMUM VALUE IN DATAFRAME COLUMN (DIMENSION)
                     maxi = (soft_k_data[dim_dict[param_list[j]]].max()) #FIND MAXIMUM VALUE IN DATAFRAME COLUMN (DIMENSION)
                     k_loc[k,j] = np.random.uniform(low=mini, high=maxi) #UPDATE CLUSTER MEAN SO IT MOVES TO NEW RANDOM POSITION
+    print('*******************ELBOW METHOD SCORE***************')
+    sesk_Dict={}                                                        #CREATE DICTIONARY TO STORE STORE SUM ERRORS SQUARED FOR EACH CLUSTER K
+    for k in range(1, int(k_points)+1):                                 #CYCLE THROUGH CLUSTERS
+        sesk_Dict["sesk{0}".format(k)] = 0                              #FORMAT DICTIONARY KEYS
+        sesk_List = sorted(sesk_Dict.keys())                            #SUM ERRORS SQUARED FOR EACH CLUSTER K
+    for i in range(0, len(soft_k_data)):                                #CYCLE THROUGH DATAPOINTS
+        for k in range(0, int(k_points)):                               #CYCLE THROUGH CLUSTERS
+            if k_res_track[i] == k+1:                                   #IF RESPONSIBILITY TRACKER EQUALS CLUSTER NUMBER
+                sesk_Dict[sesk_List[k]] = sesk_Dict[sesk_List[k]]+\
+                (new_dist_arr[i,k])**2                                  #SELECT DISTANCE FROM DATA POINT TO ASSIGNED CLUSTER AND SQUARE
+    sesk_total = sum(sesk_Dict.values())                                #CALCULATE TOTAL OF SUM ERRORS SQUARED FOR EACH CLUSTER K
+    print("Elbow Method Sum of Errors Squared Score=", sesk_total)      #PRINT SUM ERRORS SQUARED FOR USER
     print('***************FINAL K MEAN CO-ORDINATES************')
     print(k_loc)                                                        #PRINT FINAL K MEANS CO-ORDINATES
     k_res_track = KMF.k_tracker(k_res_data, k_loc)                      #DETERMINE FINAL RESPONSIBILTY TRACKER USING KMF FUNCTION
@@ -107,5 +119,3 @@ def soft_k_mean_V1():
       
 if __name__ == "__main__":
     soft_k_mean_V1()
-
-
