@@ -113,13 +113,9 @@ def soft_k_mean_V1():
                 sesk_Dict[sesk_List[k]] = sesk_Dict[sesk_List[k]]+\
                 (new_dist_arr[i,k])**2                                  #SELECT DISTANCE FROM DATA POINT TO ASSIGNED CLUSTER AND SQUARE
     for k in range(0, int(k_points)):
-        print("k", k)
-        print(sesk_Dict[sesk_List[k]])
-        print("k_assign[k]",k_assign[k])
         sesk_Dict[sesk_List[k]] = sesk_Dict[sesk_List[k]]/k_assign[k]   #CALCULATE AVERAGE SUM OF ERRORS SQUARED FOR A CLUSTER
-        print("sesk_Dict[sesk_List[k]]",sesk_Dict[sesk_List[k]])
     sesk_total = sum(sesk_Dict.values())                                #CALCULATE TOTAL OF SUM AVERAGE ERRORS SQUARED FOR EACH CLUSTER K
-    print("Elbow Method Sum of Average Errors Squared =", sesk_total)      #PRINT SUM ERRORS SQUARED FOR USER
+    print("Elbow Method Sum of Average Errors Squared =", sesk_total)   #PRINT SUM ERRORS SQUARED FOR USER
     
     '''
     SUMMARISE RESULTS & PLOT RELEVANT GRAPHS
