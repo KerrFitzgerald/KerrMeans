@@ -15,6 +15,9 @@ import K_Means_Functions as KMF
 
 #IMPLEMENT SOFT K MEANS VERSION 1 ALGORITHM
 def soft_k_mean_V1():
+    '''
+    READ USER INPUT & PROCESS DATA
+    '''
     filename, k_points, dims, interest, dim_dict, N_steps, norm, \
     beta, min_assign = KMF.input_read()                                 #READ USER INPUT USING KMF FUCNTION
     print(filename, k_points, dims, interest, dim_dict, N_steps, \
@@ -29,13 +32,25 @@ def soft_k_mean_V1():
         print('***********************DATAFRAME**********************')
         soft_k_data = KMF.df_read(filename)                             #READ DATAFRAME FROM FILE
         print(soft_k_data)                                              #PRINT NORMALISED DATAFRAME
+    
+    '''
+    CREATE INITIAL K MEAN CO_ORDINATES
+    '''
     print('**************ORIGINAL K MEAN CO-ORDINATES************')
     k_loc = KMF.k_assign(int(dims), k_points, soft_k_data, dim_dict)    #CREATE INITIAL K-MEAN CO-ORDINATES USING KMF FUCNTION
     print(k_loc)                                                        #PRINT INITIAL K CLUSTER CO-ORDINATES
+    
+    '''
+    DETERMINE PLOTTING OPTIONS
+    '''
     if int(dims) == 2:                                                  #IF 2D IS BEING USED
         KMF.initial_plot_2D(soft_k_data, k_loc, dim_dict)               #PLOT DATAPOINTS AND INITIAL K-MEAN CO-ORDINATES IN 2D USING KMF FUNCTION
     if int(dims) == 3:                                                  #IF 3D IS BEING USED
         KMF.initial_plot_3D(soft_k_data, k_loc, dim_dict)               #PLOT DATAPOINTS AND INITIAL K-MEAN CO_ORDINATES IN 3D USING KMF FUNCTION
+        
+    '''
+    CREATE DICTIONARIES TO ALLOW ACCESS TO RESPONSIBILITY ARRAY
+    '''
     rk_Dim_Dict={}                                                      #CREATE DICTIONARY TO ALLOW ACCESS TO DIMENSIONS OF RESPONSIBILITY ARRAY
     rkTotalDict ={}                                                     #CREATE DICTIONARY TO ALLOW TOTAL OF EACH DIMENSION OF RESPONSIBILITY ARRAY TO BE TRACKED
     for j in range(1,dims+1):                                           #CYCLE THROUGH DIMENSIONS
@@ -44,6 +59,10 @@ def soft_k_mean_V1():
     rk_Dim_List = sorted(rk_Dim_Dict.keys())
     rkTotalList = sorted(rkTotalDict.keys())
     k_assign = np.zeros(int(k_points))                                  #ARRAY TO TRACK NUMBER OF POINTS ASSIGNED TO EACH CLUSTER TO ALLOW PERTURBATION
+    
+    '''
+    IMPLEMENT THE SOFT K MEANS VERSION 1 ALGORITHM
+    '''
     for n in range(0,int(N_steps)):                                     #CYCLE THROUGH ITERATION (USER DEFINED MAX ITERATIONS USED)
         k_assign[:] = 0                                                 #RESET ASSIGNMENT ARRAY OF NUMBER OF POINTS ASSIGNED TO EACH CLUSTER TO ALLOW PERTURBATION
         new_dist_arr =\
@@ -62,10 +81,15 @@ def soft_k_mean_V1():
                     tot_k_respons[k]                                    #UPDATE CLUSTER MEAN LOCATION BY DIVIDING BY TOTAL RESPONSIBILITY 
                 rkTotalDict[rkTotalList[j]] = 0                         #RESET VALUE
         k_res_track = KMF.k_tracker(k_res_data, k_loc)                  #UPDATE RESPONSIBILITY TRACKER
+        
+        '''
+        CHECK THAT CLUSTERS CONTAIN MINIMUM ALLOWED NUMBER OF DATAPOINTS
+        IF THIS IS NOT TRUE THEN RANDOMLY MOVE THE CLUSTER LOCATION
+        '''
         for k in range(0, int(k_points)):                               #CYCLE THROUGH CLUSTERS
             for i in range(0, len(soft_k_data)):                        #CYCLE THROUGH DATAPOINTS
                 if k_res_track[i] == k+1:                               #IF RESPONSIBILITY TRACKER EQUALS CLUSTER NUMBER
-                    k_assign[k] = k_assign[k] + 1                       #UPDATE ARRAY CONTAINING NUMBER OF POINTS ASSIGNED TO EACH CLUSTER
+                    k_assign[k] = k_assign[k] + 1                       #UPDATE ARRAY CONTAINING NUMBER OF POINTS ASSIGNED TO EACH CLUSTER                 
         for k in range(0, int(k_points)):                               #CYCLE THROUGH CLUSTERS
             if k_assign[k] <= min_assign:                               #IF NUMBER OF DATAPOINTS ASSIGNED TO CLUSTER IS EQUAL/LOWER THAN USER INPUT
                 print("Perturbed iteration", '{0: <3}'.format(n),\
@@ -74,6 +98,10 @@ def soft_k_mean_V1():
                     mini = (soft_k_data[dim_dict[param_list[j]]].min()) #FIND MINIMUM VALUE IN DATAFRAME COLUMN (DIMENSION)
                     maxi = (soft_k_data[dim_dict[param_list[j]]].max()) #FIND MAXIMUM VALUE IN DATAFRAME COLUMN (DIMENSION)
                     k_loc[k,j] = np.random.uniform(low=mini, high=maxi) #UPDATE CLUSTER MEAN SO IT MOVES TO NEW RANDOM POSITION
+                    
+    '''
+    DETERMINE THE SUM OF ERRORS SQUARED FOR EACH CLUSTER & RETURN SCORE
+    '''
     print('*******************ELBOW METHOD SCORE***************')
     sesk_Dict={}                                                        #CREATE DICTIONARY TO STORE STORE SUM ERRORS SQUARED FOR EACH CLUSTER K
     for k in range(1, int(k_points)+1):                                 #CYCLE THROUGH CLUSTERS
@@ -84,8 +112,18 @@ def soft_k_mean_V1():
             if k_res_track[i] == k+1:                                   #IF RESPONSIBILITY TRACKER EQUALS CLUSTER NUMBER
                 sesk_Dict[sesk_List[k]] = sesk_Dict[sesk_List[k]]+\
                 (new_dist_arr[i,k])**2                                  #SELECT DISTANCE FROM DATA POINT TO ASSIGNED CLUSTER AND SQUARE
-    sesk_total = sum(sesk_Dict.values())                                #CALCULATE TOTAL OF SUM ERRORS SQUARED FOR EACH CLUSTER K
-    print("Elbow Method Sum of Errors Squared Score=", sesk_total)      #PRINT SUM ERRORS SQUARED FOR USER
+    for k in range(0, int(k_points)):
+        print("k", k)
+        print(sesk_Dict[sesk_List[k]])
+        print("k_assign[k]",k_assign[k])
+        sesk_Dict[sesk_List[k]] = sesk_Dict[sesk_List[k]]/k_assign[k]   #CALCULATE AVERAGE SUM OF ERRORS SQUARED FOR A CLUSTER
+        print("sesk_Dict[sesk_List[k]]",sesk_Dict[sesk_List[k]])
+    sesk_total = sum(sesk_Dict.values())                                #CALCULATE TOTAL OF SUM AVERAGE ERRORS SQUARED FOR EACH CLUSTER K
+    print("Elbow Method Sum of Average Errors Squared =", sesk_total)      #PRINT SUM ERRORS SQUARED FOR USER
+    
+    '''
+    SUMMARISE RESULTS & PLOT RELEVANT GRAPHS
+    '''
     print('***************FINAL K MEAN CO-ORDINATES************')
     print(k_loc)                                                        #PRINT FINAL K MEANS CO-ORDINATES
     k_res_track = KMF.k_tracker(k_res_data, k_loc)                      #DETERMINE FINAL RESPONSIBILTY TRACKER USING KMF FUNCTION
