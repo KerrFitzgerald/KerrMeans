@@ -20,7 +20,7 @@ A number of improvements could be made to this code and repository. Examples inc
 
 Completed improvements include:
 2)  Reduce the amount of print statements by using loops and a python dictionary
-3)  Improve the test data so that it contains 10 clusters
+3)  Improve the test data so that it contains 5 dimensions
 4)  Add option for 2D functionality using an 'if' loop and additional input parameter
 5)  Split code into functions which may also easy implementation of elbow method
 6)  Copy KerrMeans3D.py and use this to create a soft k-means version
