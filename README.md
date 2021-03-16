@@ -19,7 +19,7 @@ A number of improvements could be made to this code and repository. Examples inc
 13) Implement the silhouette method
 
 Completed improvements include:
-2)  Reduce the amount of print statements by using loops and a python dictionary
+2)  Reduce the amount of print statements by using loops and a python dictionary\n
 3)  Improve the test data so that it contains 5 dimensions
 4)  Add option for 2D functionality using an 'if' loop and additional input parameter
 5)  Split code into functions which may also easy implementation of elbow method
