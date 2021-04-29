@@ -3,10 +3,10 @@ Algorithms used can be found in "Information Theory, Inference & Learning Algori
 
 A number of improvements could be made to this code and repository. Examples include:
 
-12) Implement Updated Soft K-means Version 1 algorithm
-13) Implement Soft K-means Version 2 algorithm
-14) Implement Soft K-means Version 3 algorithm
-15) Implement the silhouette method
+13) Implement Updated Soft K-means Version 1 algorithm
+14) Implement Soft K-means Version 2 algorithm
+15) Implement Soft K-means Version 3 algorithm
+16) Implement the silhouette method
 
 Completed improvements include:
 
@@ -21,3 +21,4 @@ Completed improvements include:
 09) Change code to allow automated elbow method
 10) Vectorize the distance and update calculation
 11) Add in statistical running capability testing different random number seeds
+12) Adhere to PEP8 Python standard
