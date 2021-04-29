@@ -15,9 +15,9 @@ Completed improvements include:
 03) Expand codes to work with more than 3 dimesnions
 04) Add option for 2D functionality using an 'if' loop and additional input parameter
 05) Split code into functions which may also easy implementation of elbow method
-06) Improve the test data so that it contains 5 dimensions
+06) Improve the test data so that it contains 5 dimensions (Moved to OLD_CODE)
 07) Implement elbow method
-08) Improve the test data so that it contains 10 dimensions
+08) Improve the test data so that it contains 10 dimensions (Moved to OLD_CODE)
 09) Change code to allow automated elbow method
 10) Vectorize the distance and update calculation
 11) Add in statistical running capability testing different random number seeds
