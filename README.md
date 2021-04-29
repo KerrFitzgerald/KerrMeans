@@ -2,12 +2,14 @@ My first github repository to host python code for the K-means algorithms.
 Algorithms used can be found in "Information Theory, Inference & Learning Algorithms" by David J.C. Mackay
 
 A number of improvements could be made to this code and repository. Examples include:
+
 12) Implement Updated Soft K-means Version 1 algorithm
 13) Implement Soft K-means Version 2 algorithm
 14) Implement Soft K-means Version 3 algorithm
 15) Implement the silhouette method
 
 Completed improvements include:
+
 01) Add a feature to stop 'update loop' once mean values do not move
 02) Reduce the amount of print statements by using loops and a python dictionary
 03) Expand codes to work with more than 3 dimesnions
