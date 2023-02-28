@@ -24,3 +24,5 @@ Completed improvements include:
 10) Vectorize the distance and update calculation
 11) Add in statistical running capability testing different random number seeds
 12) Adhere to PEP8 Python standard
+
+The 'wine' dataset is available at: https://archive.ics.uci.edu/ml/datasets.php
