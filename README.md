@@ -1,5 +1,7 @@
-My first github repository to host python code for the K-means algorithms.
+GitHb repository to host python code (K_Means_Vectorized.py) for the K-means algorithms.
 Algorithms used can be found in "Information Theory, Inference & Learning Algorithms" by David J.C. Mackay
+
+This repository also contains a Jupyter Notebook (Lab Session k-means Clustering Wine Chemical Composition Data.ipynb) which applies K-means algorithms using the Sci-Kit Learn Python Library. This notebook has been used for intereactive MSc Data Science undergraduate teaching.
 
 A number of improvements could be made to this code and repository. Examples include:
 
